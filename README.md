@@ -1,4 +1,4 @@
-# ORB API
+# Online Resource Bank (ORB) API
 
 The **Online Resource Bank (ORB) API** is a backend service designed to manage and provide access to a centralized database of online government resources. It supports functionality for searching, adding, editing, and deleting records related to government offices and services, such as assessors, tax collectors, recorder offices, judgment records, and miscellaneous records.
 
