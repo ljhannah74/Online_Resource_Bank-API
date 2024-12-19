@@ -43,8 +43,8 @@ The **Online Resource Bank (ORB) API** is a backend service designed to manage a
 
 ### Search
 - `GET /api/resource` - Get a list of all states.
-- `GET /api/resource/{stateId] - Get a list of counties for state with id "stated"
-- `GET /api/resource/{stateId}/{countyId} - Get a list of all resources for county with "countyId" in state with "stateId
+- `GET /api/resource/{stateId]` - Get a list of counties for state with id "stated"
+- `GET /api/resource/{stateId}/{countyId}` - Get a list of all resources for county with "countyId" in state with "stateId
 
 ### Resource Management
 - `POST /api/resource` - Add a new resource.
