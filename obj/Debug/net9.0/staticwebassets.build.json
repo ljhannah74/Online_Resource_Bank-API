@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7Jgcg/AT06CMKaBmXQ9tLENl57V/nTxnDIG0tkJlK5M=",
+  "Source": "orb-api",
+  "BasePath": "_content/orb-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
