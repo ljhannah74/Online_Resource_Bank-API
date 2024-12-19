@@ -18,4 +18,9 @@ public class ResourceBLL
         return _context.GetCountiesByState(stateId);
     }
 
+    public ORBDTO GetOrbsByCounty(int stateId, int countyId)
+    {
+        return _context.GetOrbsByCounty(stateId, countyId).First();
+    }
+
 }

@@ -37,5 +37,17 @@ namespace orb_api.Controllers
 
             return response;
         }
+
+        [HttpGet("{stateID}/{countyID}")]
+        public ApiResponse<ORBDTO> GetOrbsByCounty(int stateID, int countyID)
+        {
+            ApiResponse<ORBDTO> response = ApiResponseUtil<ORBDTO>.GetApiResponse(HttpStatusCode.OK);
+
+            var orbInfo = _resourceBLL.GetOrbsByCounty(stateID, countyID);
+            
+            response.data = orbInfo;
+
+            return response;
+        }
     }
 }

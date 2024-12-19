@@ -12,7 +12,8 @@ public class ResourceDAL : DbConnection
         using (var connection = GetConnection())
         {
             connection.Open();
-            var cmd = new MySqlCommand("SELECT * FROM State", connection);
+            var cmd = new MySqlCommand("GetStates", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -32,8 +33,9 @@ public class ResourceDAL : DbConnection
         using (var connection = GetConnection())
         {
             connection.Open();
-            var cmd = new MySqlCommand("SELECT * FROM County WHERE StateID = @StateID", connection);
-            cmd.Parameters.AddWithValue("@StateID", stateId);
+            var cmd = new MySqlCommand("GetCountiesByState", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@p_StateID", stateId);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -46,6 +48,33 @@ public class ResourceDAL : DbConnection
             }
         }
         return counties;
+    }
+
+    public IEnumerable<ORBDTO> GetOrbsByCounty(int stateID, int countyId)
+    {
+        var orbs = new List<ORBDTO>();
+        using (var connection = GetConnection())
+        {
+            connection.Open();
+            var cmd = new MySqlCommand("GetOrbsByCounty", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@p_StateID", stateID);
+            cmd.Parameters.AddWithValue("@p_CountyID", countyId);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                orbs.Add(new ORBDTO
+                {
+                    StateId = reader.GetInt32("StateID"),
+                    CountyId = reader.GetInt32("CountyID"),
+                    ORBId = reader.GetInt32("Id"),
+                    LastUpdate = reader.GetDateTime("last_update"),
+                    CountyHomePage = reader.GetString("county_homepage"),
+                    Comments = reader.GetString("comments")
+                });
+            }
+        }
+        return orbs;
     }
 
 }
