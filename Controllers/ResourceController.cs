@@ -1,4 +1,5 @@
 using System.Net;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
@@ -20,7 +21,7 @@ namespace orb_api.Controllers
             ApiResponse<IEnumerable<StateDTO>> response = ApiResponseUtil<IEnumerable<StateDTO>>.GetApiResponse(HttpStatusCode.OK);
 
             var stateList = _resourceBLL.GetStates();
-            
+
             response.data = stateList;
 
             return response;
@@ -32,7 +33,7 @@ namespace orb_api.Controllers
             ApiResponse<IEnumerable<CountyDTO>> response = ApiResponseUtil<IEnumerable<CountyDTO>>.GetApiResponse(HttpStatusCode.OK);
 
             var countyList = _resourceBLL.GetCountiesByState(stateID);
-            
+
             response.data = countyList;
 
             return response;
@@ -44,8 +45,30 @@ namespace orb_api.Controllers
             ApiResponse<ORBDTO> response = ApiResponseUtil<ORBDTO>.GetApiResponse(HttpStatusCode.OK);
 
             var orbInfo = _resourceBLL.GetOrbsByCounty(stateID, countyID);
-            
+
             response.data = orbInfo;
+
+            return response;
+        }
+
+        [HttpPost("AddOrUpdateResourceByOrb")]
+        public ApiResponse<object> AddOrUpdateResourceByOrb(ResourceDTO resourceDTO)
+        {
+            ApiResponse<object> response = ApiResponseUtil<object>.GetApiResponse(HttpStatusCode.OK);
+
+            _resourceBLL.AddOrUpdateResourceByOrb(resourceDTO);
+
+            return response;
+        }
+
+        [HttpGet("subscriptions/{orbId}")]
+        public ApiResponse<IEnumerable<SubscriptionDTO>> GetSubscriptionsByOrb(int orbId)
+        {
+            ApiResponse<IEnumerable<SubscriptionDTO>> response = ApiResponseUtil<IEnumerable<SubscriptionDTO>>.GetApiResponse(HttpStatusCode.OK);
+
+            var subscriptionList = _resourceBLL.GetSubscriptionsByOrb(orbId);
+
+            response.data = subscriptionList;
 
             return response;
         }

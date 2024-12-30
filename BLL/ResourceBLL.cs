@@ -23,4 +23,13 @@ public class ResourceBLL
         return _context.GetOrbsByCounty(stateId, countyId).First();
     }
 
+    public void AddOrUpdateResourceByOrb(ResourceDTO resourceDTO)
+    {
+        _context.AddOrUpdateResourceByOrb(resourceDTO);
+    }
+
+    public IEnumerable<SubscriptionDTO> GetSubscriptionsByOrb(int orbId)
+    {
+        return _context.GetSubscriptionsByOrb(orbId);
+    }
 }

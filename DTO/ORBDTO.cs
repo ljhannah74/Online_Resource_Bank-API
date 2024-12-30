@@ -10,4 +10,5 @@ public class ORBDTO
     public DateTime? LastUpdate { get; set; }
     public string? CountyHomePage { get; set; }
     public string? Comments { get; set; }
+    public List<ResourceDTO> Resources { get; set; }
 }
