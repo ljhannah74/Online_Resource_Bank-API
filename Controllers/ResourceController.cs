@@ -40,11 +40,11 @@ namespace orb_api.Controllers
         }
 
         [HttpGet("{stateID}/{countyID}")]
-        public ApiResponse<ORBDTO> GetOrbsByCounty(int stateID, int countyID)
+        public ApiResponse<ORBDTO> GetOrbByCounty(int stateID, int countyID)
         {
             ApiResponse<ORBDTO> response = ApiResponseUtil<ORBDTO>.GetApiResponse(HttpStatusCode.OK);
 
-            var orbInfo = _resourceBLL.GetOrbsByCounty(stateID, countyID);
+            var orbInfo = _resourceBLL.GetOrbByCounty(stateID, countyID);
 
             response.data = orbInfo;
 

@@ -50,20 +50,20 @@ public class ResourceDAL : DbConnection
         return counties;
     }
 
-    public IEnumerable<ORBDTO> GetOrbsByCounty(int stateID, int countyId)
+    public ORBDTO GetOrbByCounty(int stateID, int countyId)
     {
-        var orbs = new List<ORBDTO>();
+        var orb = new ORBDTO();
         using (var connection = GetConnection())
         {
             connection.Open();
-            var cmd = new MySqlCommand("GetOrbsByCounty", connection);
+            var cmd = new MySqlCommand("GetOrbByCounty", connection);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@p_StateID", stateID);
             cmd.Parameters.AddWithValue("@p_CountyID", countyId);
             var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            if (reader.Read())
             {
-                var newOrb = new ORBDTO
+                orb = new ORBDTO
                 {
                     StateId = reader.GetInt32("StateID"),
                     CountyId = reader.GetInt32("CountyID"),
@@ -73,12 +73,12 @@ public class ResourceDAL : DbConnection
                     Comments = reader.GetString("comments")
                 };
 
-                newOrb.Resources = GetResourcesByORB(newOrb.ORBId).ToList();
+                orb.Resources = GetResourcesByORB(orb.ORBId).ToList();
 
-                orbs.Add(newOrb);
+            
             }
         }
-        return orbs;
+        return orb;
     }
 
     public IEnumerable<ResourceDTO> GetResourcesByORB(int orbId)
